@@ -1,0 +1,410 @@
+@import "block";
+
+$clarification_color: #2A477D;
+
+/*=== Data section ===*/
+.content_data {
+  margin: 50px 0 70px;
+}
+
+.content_data__row {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+}
+
+.content_data__column {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.content_data__item {
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid #068CA6;
+  box-shadow: 0 4px 4px rgba(6, 140, 166, 0.31);
+  border-radius: 10px;
+  padding: 10px;
+  &:first-child{
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    .heading {
+      color: #028CA6;
+      font-size: 24px;
+    }
+    .img_place {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+      filter: drop-shadow(0px 4px 25px rgba(6, 140, 166, 0.25));
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 650px){
+  .content_data__row{
+    display: block;
+  }
+  .content_data__column{
+    width: 100%;
+    &:last-child{
+      margin-top: 25px;
+    }
+  }
+}
+/* Пояснение */
+.clarification {
+  color: $clarification_color;
+  font-weight: 700;
+  font-size: 18px;
+  span {
+    color: #068CA6;
+    font-size: 14px;
+  }
+}
+
+
+/*=== Carousel section ===*/
+.carousel {
+  margin: 25px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin distribute-on-circle( $nb-items, $circle-size, $item-size) {
+  $half-item: ($item-size / 2);
+  $half-parent: ($circle-size / 2);
+  position: relative;
+  width: $circle-size;
+  height: 40em;
+  border-radius: 50%;
+  > * {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $item-size;
+    height: $item-size;
+    margin: -$half-item;
+    background: #1970a3;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  $angle: (360 / $nb-items);
+  $rot: 0;
+  @for $i from 1 through $nb-items {
+    > :nth-of-type(#{$i}) {
+      transform: rotate($rot * 1deg) translate($half-parent) rotate($rot * -1deg);
+    }
+    $rot: ($rot + $angle);
+  }
+}
+
+.carousel {
+  &-circle {
+    @include distribute-on-circle(8, 40em, 110px);
+    margin: 5em auto 0;
+    transition: box-shadow .5s;
+    &__item {
+      &:hover{
+        box-shadow: 0 4px 20px rgba(6, 140, 166);
+        transition: box-shadow .5s;
+      }
+      img {
+        display: block;
+        width: 100%;
+      }
+      &_plus{
+        position: absolute;
+        top:-5px;
+        left: -5px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #1A6EA0;
+        padding:5px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+
+.carousel_center {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  top: 35%;
+  left: 35%;
+  background: transparent;
+  &__img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.4;
+    transition: opacity .3s;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: transform .3s;
+      object-fit: none;
+    }
+
+    &:hover {
+      opacity: 1;
+      transition: opacity .3s;
+
+      img {
+        transform: scale(1.05);
+        transition: transform .3s;
+      }
+    }
+  }
+
+  .heading {
+    color: #028CA6;
+    font-size: 24px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 950px) {
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 40em, 100px);
+    }
+  }
+  .carousel_center{
+    width: 250px;
+    height: 250px;
+    top:35%;
+    left: 35%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 35em, 100px);
+    }
+  }
+  .carousel_center{
+    width: 250px;
+    height: 250px;
+    top:35%;
+    left: 35%;
+    &__img{
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  @mixin distribute-on-circle( $nb-items, $circle-size, $item-size) {
+    $half-item: ($item-size / 2);
+    $half-parent: ($circle-size / 2);
+    position: relative;
+    width: $circle-size;
+    height: 40em;
+    border-radius: 50%;
+    > * {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $item-size;
+      height: $item-size;
+      margin: -$half-item;
+      background: #1970a3;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    $angle: (360 / $nb-items);
+    $rot: 0;
+    @for $i from 1 through $nb-items {
+      > :nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($half-parent - 2.5) rotate($rot * -1deg);
+      }
+      $rot: ($rot + $angle);
+    }
+  }
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 35em, 80px);
+    }
+  }
+
+  .carousel_center{
+    width: 250px;
+    height: 250px;
+    top:35%;
+    left: 35%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  @mixin distribute-on-circle( $nb-items, $circle-size, $item-size) {
+    $half-item: ($item-size / 2);
+    $half-parent: ($circle-size / 2);
+    position: relative;
+    width: $circle-size;
+    height: 40em;
+    border-radius: 50%;
+    > * {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $item-size;
+      height: $item-size;
+      margin: -$half-item;
+      background: #1970a3;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    $angle: (360 / $nb-items);
+    $rot: 0;
+    @for $i from 1 through $nb-items {
+      > :nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($half-parent - 3) rotate($rot * -1deg);
+      }
+      $rot: ($rot + $angle);
+    }
+  }
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 35em, 60px);
+      &__item{
+        &_plus{
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  .carousel_center{
+    width: 250px;
+    height: 250px;
+    top:35%;
+    left: 35%;
+  }
+}
+
+
+@media screen and (max-width: 570px) {
+  @mixin distribute-on-circle( $nb-items, $circle-size, $item-size) {
+    $half-item: ($item-size / 2);
+    $half-parent: ($circle-size / 2);
+    position: relative;
+    width: $circle-size;
+    height: 30em;
+    border-radius: 50%;
+    > * {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $item-size;
+      height: $item-size;
+      margin: -$half-item;
+      background: #1970a3;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    $angle: (360 / $nb-items);
+    $rot: 0;
+    @for $i from 1 through $nb-items {
+      > :nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($half-parent - 8) rotate($rot * -1deg);
+      }
+      $rot: ($rot + $angle);
+    }
+  }
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 35em, 60px);
+    }
+  }
+  .carousel_center{
+    width: 180px;
+    height: 180px;
+    top:35%;
+    left: 35%;
+    .heading{
+      font-size: 18px;
+    }
+  }
+  .carousel_center__img{
+    img{
+      object-fit: contain;
+    }
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  @mixin distribute-on-circle( $nb-items, $circle-size, $item-size) {
+    $half-item: ($item-size / 2);
+    $half-parent: ($circle-size / 2);
+    position: relative;
+    width: $circle-size;
+    height: 25em;
+    border-radius: 50%;
+    > * {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $item-size;
+      height: $item-size;
+      margin: -$half-item;
+      background: #1970a3;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    $angle: (360 / $nb-items);
+    $rot: 0;
+    @for $i from 1 through $nb-items {
+      > :nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($half-parent - 10) rotate($rot * -1deg);
+      }
+      $rot: ($rot + $angle);
+    }
+  }
+  .carousel {
+    &-circle {
+      @include distribute-on-circle(8, 35em, 60px);
+    }
+  }
+  .carousel_center{
+    width: 130px;
+    height: 130px;
+    top:40%;
+    left: 40%;
+  }
+}
+
+.tooltip{
+  font-weight: bold;
+  color: $color;
+}
